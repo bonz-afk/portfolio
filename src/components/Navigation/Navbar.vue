@@ -64,35 +64,38 @@
         </transition>
       </div>
     </header>
-    <section>
+    <!-- <section>
         <Banner/>
-    </section>
+    </section> -->
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { MoonIcon, SunIcon } from '@heroicons/vue/24/solid'
+import { useEffectChanger } from '@/stores/EffectChanger';
 import Banner from '@/components/Layouts/Banner.vue'
 
-// Initialize darkMode state
-const darkMode = ref(false)
-const selectedSection = ref('About')
-const menuOpen = ref(false)
+// Use the Pinia store
+const effectChangerStore = useEffectChanger()
 
-// Toggle the darkMode state and update the data-theme attribute
+// Access dark mode state from the store
+const menuOpen = ref(false)
+const selectedSection = ref('About')
+
+// Toggle dark mode using the store
 const toggleDarkMode = () => {
-  darkMode.value = !darkMode.value
-  document.documentElement.setAttribute('data-theme', darkMode.value ? 'dark' : 'light')
-  localStorage.setItem('darkMode', darkMode.value.toString())
-  console.log('Dark mode toggled:', darkMode.value)
+  effectChangerStore.bgEffects = !effectChangerStore.bgEffects
+  document.documentElement.setAttribute('data-theme', effectChangerStore.bgEffects ? 'dark' : 'light')
+  localStorage.setItem('darkMode', effectChangerStore.bgEffects.toString())
 }
 
 // Dynamic imports for logo
 const logoSrc = computed(() => {
-  // return darkMode.value ? new URL('@/assets/images/dark-logo.png', import.meta.url).href : new URL('@/assets/images/light-logo.png', import.meta.url).href;
-  return  new URL('@/assets/images/dark-logo.png', import.meta.url).href
-});
+  return effectChangerStore.bgEffects 
+    ? new URL('@/assets/images/dark-logo.png', import.meta.url).href
+    : new URL('@/assets/images/light-logo.png', import.meta.url).href
+})
 
 const selectSection = (section) => {
   selectedSection.value = section
@@ -108,12 +111,12 @@ const toggleMenu = () => {
 
 onMounted(() => {
   if (localStorage.getItem('darkMode') === 'true') {
-    darkMode.value = true
+    effectChangerStore.bgEffects = true
     document.documentElement.setAttribute('data-theme', 'dark')
   }
 })
 
-const currentIcon = computed(() => (darkMode.value ? MoonIcon : SunIcon))
+const currentIcon = computed(() => (effectChangerStore.bgEffects ? MoonIcon : SunIcon))
 </script>
 
 <style scoped>

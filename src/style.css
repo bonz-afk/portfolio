@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* Define light theme variables */
 :root {
-  --bg-color: #f7fafc; /* bg-gray-100 */
+  --bg-color: linear-gradient(to bottom,  #eae5c9 0%,#fcfcfc 99%); 
   --text-color: #1a202c; /* text-gray-900 */
   --header-bg: #000800; /* bg-gray-800 */
   --card-bg: #ffffff; /* bg-white */
@@ -14,6 +15,7 @@
   --bg-gradient: linear-gradient(to bottom,  #845a6d 0%,#6d4b55 62%,#6d4b55 62%);
   --nav-text: #fff;
   --card-bg: #f3f3f4;
+  --border: 1px solid #000;
 }
 /* Define dark theme variables */
 [data-theme='dark'] {
@@ -26,6 +28,7 @@
   --bg-img: url('@/assets/images/dark.png') no-repeat center center fixed;
   --bg-gradient: linear-gradient(to bottom,  #845a6d 0%,#6d4b55 62%,#6d4b55 62%);
   --card-bg: #48536A;
+  --border: 1px solid #fff;
 }
 
 body {
@@ -45,12 +48,10 @@ button {
   color: var(--button-text);
 }
 
-
 .burger {
   background-color: var(--header-bg) !important; 
   color: var(--text-color) !important; 
 }
-
 
 .burger-dropdown {
   background-color: var(--card-bg); 
@@ -59,7 +60,7 @@ button {
   z-index: 99999999;
 }
 
-.carousel__viewport{
+.carousel__viewport {
   /* background: #3D343D; */
 }
 
@@ -113,12 +114,12 @@ video {
   z-index: 10;
 }
 
-.card-bg{
+.card-bg {
   background-color: var(--card-bg);
 }
 
-.card-img{
-  background: url('@/assets/images/computer.png')  center left no-repeat;
+.card-img {
+  background: url('@/assets/images/computer.png') center left no-repeat;
 }
 
 @keyframes moving-gradient {
@@ -140,4 +141,9 @@ video {
   background-clip: text;
   color: transparent;
   animation: moving-gradient 2s linear infinite;
+}
+
+.class-border{
+  border: var(--border);
+  border-radius: 20px;
 }
